@@ -9,6 +9,11 @@ import SwiftUI
 
 @available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, *)
 public final class MultiWebImageURL: Equatable, Hashable {
+    public init(primaryUrl: URL? = nil, secondaryURL: URL? = nil) {
+        self.primaryUrl = primaryUrl
+        self.secondaryURL = secondaryURL
+    }
+
     private var id: String {
         primaryUrl?.absoluteString ?? UUID().uuidString
     }
