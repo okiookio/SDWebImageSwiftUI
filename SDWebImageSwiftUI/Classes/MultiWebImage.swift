@@ -9,6 +9,15 @@ import SwiftUI
 
 @available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, *)
 public final class MultiWebImageURL: Equatable, Hashable {
+    public init(primaryUrl: String? = nil, secondaryURL: String? = nil) {
+        if let url = primaryUrl {
+            self.primaryUrl = .init(string: url)
+        }
+        if let url = secondaryURL {
+            self.secondaryURL = .init(string: url)
+        }
+    }
+
     public init(primaryUrl: URL? = nil, secondaryURL: URL? = nil) {
         self.primaryUrl = primaryUrl
         self.secondaryURL = secondaryURL
@@ -19,7 +28,7 @@ public final class MultiWebImageURL: Equatable, Hashable {
     }
 
     public static func == (lhs: MultiWebImageURL, rhs: MultiWebImageURL) -> Bool {
-        lhs.primaryUrl == rhs.primaryUrl && lhs.secondaryURL == rhs.secondaryURL
+        lhs.primaryUrl?.absoluteString == rhs.primaryUrl?.absoluteString && lhs.secondaryURL?.absoluteString == rhs.secondaryURL?.absoluteString
     }
     
     public func hash(into hasher: inout Hasher) {
