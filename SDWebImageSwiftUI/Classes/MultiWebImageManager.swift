@@ -9,12 +9,12 @@ import Foundation
 
 public class MultiWebImageManager: SDWebImageManager {
     @discardableResult
-    public func loadImage(with url: MultiWebImageURL, options: SDWebImageOptions = [], progress progressBlock: SDImageLoaderProgressBlock?, completed completedBlock: @escaping SDInternalCompletionBlock) -> SDWebImageCombinedOperation? {
-        loadImage(with: url, options: options, context: nil, progress: progressBlock, completed: completedBlock)
+    public func loadWebImage(with url: MultiWebImageURL, options: SDWebImageOptions = [], progress progressBlock: SDImageLoaderProgressBlock?, completed completedBlock: @escaping SDInternalCompletionBlock) -> SDWebImageCombinedOperation? {
+        loadWebImage(with: url, options: options, context: nil, progress: progressBlock, completed: completedBlock)
     }
 
     @discardableResult
-    public func loadImage(with url: MultiWebImageURL, options: SDWebImageOptions = [], context: [SDWebImageContextOption: Any]?, progress progressBlock: SDImageLoaderProgressBlock?, completed completedBlock: @escaping SDInternalCompletionBlock) -> SDWebImageCombinedOperation? {
+    public func loadWebImage(with url: MultiWebImageURL, options: SDWebImageOptions = [], context: [SDWebImageContextOption: Any]?, progress progressBlock: SDImageLoaderProgressBlock?, completed completedBlock: @escaping SDInternalCompletionBlock) -> SDWebImageCombinedOperation? {
         super.loadImage(with: url.primaryUrl, options: options, context: context, progress: progressBlock) { [weak self] image, data, error, cacheType, finished, imageURL in
 
             guard let self = self else {
