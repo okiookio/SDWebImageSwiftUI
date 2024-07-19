@@ -35,8 +35,8 @@ public final class MultiWebImageURL: Equatable, Hashable {
         hasher.combine(id)
     }
 
-    var primaryUrl: URL?
-    var secondaryURL: URL?
+    public var primaryUrl: URL?
+    public var secondaryURL: URL?
 }
 
 @available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, *)
