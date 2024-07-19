@@ -7,15 +7,15 @@
 
 import Foundation
 
-public class MultiWebImageManager: SDWebImageManager {
+public extension SDWebImageManager {
     @discardableResult
-    public func loadWebImage(with url: MultiWebImageURL, options: SDWebImageOptions = [], progress progressBlock: SDImageLoaderProgressBlock?, completed completedBlock: @escaping SDInternalCompletionBlock) -> SDWebImageCombinedOperation? {
+    func loadWebImage(with url: MultiWebImageURL, options: SDWebImageOptions = [], progress progressBlock: SDImageLoaderProgressBlock?, completed completedBlock: @escaping SDInternalCompletionBlock) -> SDWebImageCombinedOperation? {
         loadWebImage(with: url, options: options, context: nil, progress: progressBlock, completed: completedBlock)
     }
 
     @discardableResult
-    public func loadWebImage(with url: MultiWebImageURL, options: SDWebImageOptions = [], context: [SDWebImageContextOption: Any]?, progress progressBlock: SDImageLoaderProgressBlock?, completed completedBlock: @escaping SDInternalCompletionBlock) -> SDWebImageCombinedOperation? {
-        super.loadImage(with: url.primaryUrl, options: options, context: context, progress: progressBlock) { [weak self] image, data, error, cacheType, finished, imageURL in
+    func loadWebImage(with url: MultiWebImageURL, options: SDWebImageOptions = [], context: [SDWebImageContextOption: Any]?, progress progressBlock: SDImageLoaderProgressBlock?, completed completedBlock: @escaping SDInternalCompletionBlock) -> SDWebImageCombinedOperation? {
+        loadImage(with: url.primaryUrl, options: options, context: context, progress: progressBlock) { [weak self] image, data, error, cacheType, finished, imageURL in
 
             guard let self = self else {
                 return
@@ -34,10 +34,5 @@ public class MultiWebImageManager: SDWebImageManager {
 
             completedBlock(image, data, error, cacheType, finished, imageURL)
         }
-    }
-
-    @discardableResult
-    override public func loadImage(with url: URL?, options: SDWebImageOptions = [], context: [SDWebImageContextOption: Any]?, progress progressBlock: SDImageLoaderProgressBlock?, completed completedBlock: @escaping SDInternalCompletionBlock) -> SDWebImageCombinedOperation? {
-        super.loadImage(with: url, options: options, context: context, progress: progressBlock, completed: completedBlock)
     }
 }
