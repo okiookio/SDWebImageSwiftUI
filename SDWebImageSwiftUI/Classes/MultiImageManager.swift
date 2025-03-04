@@ -102,7 +102,12 @@ public final class MultiImageManager: ObservableObject {
                 progress = 0
             }
             self.indicatorStatus.progress = progress
-            self.progressBlock?(receivedSize, expectedSize)
+//            self.progressBlock?(receivedSize, expectedSize)
+            if let progressBlock = self.progressBlock {
+                DispatchQueue.main.async {
+                    progressBlock(receivedSize, expectedSize)
+                }
+            }
         }) { [weak self] image, data, error, cacheType, finished, _ in
             guard let self = self else {
                 return
@@ -118,7 +123,7 @@ public final class MultiImageManager: ObservableObject {
                 return
             }
 
-            withTransaction(transaction) {
+            withTransaction(self.transaction) {
                 self.image = image
                 self.error = error
                 self.isIncremental = !finished
@@ -165,7 +170,12 @@ public final class MultiImageManager: ObservableObject {
                 progress = 0
             }
             self.indicatorStatus.progress = progress
-            self.progressBlock?(receivedSize, expectedSize)
+//            self.progressBlock?(receivedSize, expectedSize)
+            if let progressBlock = self.progressBlock {
+                DispatchQueue.main.async {
+                    progressBlock(receivedSize, expectedSize)
+                }
+            }
         }) { [weak self] image, data, error, cacheType, finished, _ in
             guard let self = self else {
                 return
@@ -177,7 +187,7 @@ public final class MultiImageManager: ObservableObject {
                 // So previous View struct call `onDisappear` and cancel the currentOperation
                 return
             }
-            withTransaction(transaction) {
+            withTransaction(self.transaction) {
                 self.image = image
                 self.error = error
                 self.isIncremental = !finished
