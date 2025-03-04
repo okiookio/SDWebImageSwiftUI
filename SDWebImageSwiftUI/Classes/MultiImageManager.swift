@@ -114,7 +114,7 @@ public final class MultiImageManager: ObservableObject {
                 // So previous View struct call `onDisappear` and cancel the currentOperation
                 return
             } else if error != nil {
-                load(url: url?.secondaryURL, options: options, context: context)
+                self.load(url: url?.secondaryURL, options: options, context: context)
                 return
             }
 
